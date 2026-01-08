@@ -23,7 +23,9 @@
             onThreshold: {value: "", validate:RED.validators.number()},
             offThreshold: {value: "", validate:RED.validators.number()},
             onDelay: {value: 5, validate:validatePositiveNumber},
-            offDelay: {value: 5, validate:validatePositiveNumber}
+            offDelay: {value: 5, validate:validatePositiveNumber},
+            ignoreFirstIfOn: {value: false},
+            ignoreFirstIfOff: {value: false},
         },
         inputs: 1,
         outputs: 2,
@@ -80,6 +82,15 @@
         <label for="node-input-offDelay"><i class="fa fa-id-card"></i> Off delay</label>
         <input type="text" id="node-input-offDelay" placeholder="OFF delay" required>
     </div>
+        <div class="form-row">
+        <label for="node-input-ignoreFirstIfOn"><i class="fa fa-id-card"></i> Ignore first if on</label>
+        <input type="checkbox" id="node-input-ignoreFirstIfOn" />
+    </div>
+        </div>
+        <div class="form-row">
+        <label for="node-input-ignoreFirstIfOff"><i class="fa fa-id-card"></i> Ignore first if off</label>
+        <input type="checkbox" id="node-input-ignoreFirstIfOff" />
+    </div>
 </script>
 
 <script type="text/html" data-help-name="threshold">
@@ -98,6 +109,8 @@
     <li><i>Off threshold</i> - As soon as this threshold gets passed by <tt>msg.payload</tt>, the <i>offDelay</i> counter counts down to zero. If that hass passed, a "off" <tt>msg.payload</tt> gets send to the first output.</i></li>
     <li><i>On delay</i> - the delay in seconds that is waited before the output gets send after the input passes the on threshold.</li>
     <li><i>Off delay</i> - the delay in seconds that is waited before the output gets send after the input passes the off threshold.</li>
+    <li><i>Ignore first if on</i> - Does not send if the first value received is on</li>
+    <li><i>Ignore first if off</i> - Does not send if the first value received is off</li>
   </ul>
 
   <p>The on threshold should be higher than the off threshold.</p>

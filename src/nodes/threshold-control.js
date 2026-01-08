@@ -6,6 +6,7 @@ module.exports = function (RED) {
 
     const node = this
     node.config = config
+    let hasReceivedInput = false
     let sendOutput = false
     let countDown = false
     let counter = 0
@@ -17,6 +18,8 @@ module.exports = function (RED) {
     let offThreshold = Number(config.offThreshold)
     let onDelay = Math.round(Number(config.onDelay))
     let offDelay = Math.round(Number(config.offDelay))
+    let ignoreFirstIfOn = config.ignoreFirstIfOn
+    let ignoreFirstIfOff = config.ignoreFirstIfOff
     let message = null;
 
     const intervalId = setInterval(function () {
@@ -126,15 +129,36 @@ module.exports = function (RED) {
 
       if (msg.payload >= onThreshold && desiredState !== 'on' && counter === 0) {
         desiredState = 'on'
-        counter = onDelay
-        countDown = true
+
+        if (ignoreFirstIfOn && !hasReceivedInput) {
+          State = desiredState
+          node.status({
+            fill: 'green',
+            shape: 'dot',
+            text: `${desiredState}`
+          })
+        } else {
+          counter = onDelay
+          countDown = true
+        }
       }
 
       if (msg.payload <= offThreshold && desiredState !== 'off' && counter === 0) {
         desiredState = 'off'
-        counter = offDelay
-        countDown = true
+
+        if (ignoreFirstIfOff && !hasReceivedInput) {
+          State = desiredState
+          node.status({
+            fill: 'red',
+            shape: 'dot',
+            text: `${desiredState}`
+          })
+        } else {
+          counter = offDelay
+          countDown = true
+        }
       }
+      hasReceivedInput = true
       message = msg;
     })
 

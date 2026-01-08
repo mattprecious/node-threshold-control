@@ -1,5 +1,5 @@
 {
-  "name": "@joelaw9/node-red-threshold",
+  "name": "@mattprecious/node-red-threshold",
   "version": "1.0.3",
   "description": "Threshold",
   "scripts": {
@@ -10,7 +10,7 @@
     "victron",
     "threshold control"
   ],
-  "author": "Joseph Lawson & Dirk-Jan Faber",
+  "author": "Matt Precious & Joseph Lawson & Dirk-Jan Faber",
   "license": "MIT",
   "node-red": {
     "nodes": {
@@ -20,7 +20,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/joelaw9/node-threshold-control"
+    "url": "https://github.com/mattprecious/node-threshold-control"
   },
   "devDependencies": {},
   "engines": {
